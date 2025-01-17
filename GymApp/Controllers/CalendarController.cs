@@ -49,6 +49,7 @@ namespace GymApp.Controllers
             {
                 return BadRequest("Invalid class data.");
             }
+            calendar.AvailableSlots = calendar.Capacity;
             _context.Calendars.Add(calendar);
             await _context.SaveChangesAsync();
 
