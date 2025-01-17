@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Modal.css';
 
-function ReservationForm({ event, onClose, onReservationSuccess }) {
+function ReservationForm({ event, onClose, onReservationSuccess, onEdit }) {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
 
@@ -70,10 +70,11 @@ function ReservationForm({ event, onClose, onReservationSuccess }) {
               required
             />
           </div>
-          <button type="submit">Reserve</button>
-          <button type="button" onClick={onClose}>
-            Cancel
-          </button>
+          <div class="buttons-container">
+          <button type="button" class="edit-button">Edit</button>
+          <button type="submit" class="reserve-button">Reserve</button>
+          <button type="button" class="cancel-button">Cancel</button>
+        </div>     
         </form>
       </div>
       <div className="modal-backdrop" onClick={onClose}></div>

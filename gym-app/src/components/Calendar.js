@@ -26,11 +26,12 @@ function Calendar() {
 
   console.log('Selected Event:', event); // Log the event data
   
-    if (event.availableSlots > 0) {
-      setSelectedEvent(event);
-    } else {
-      alert(`No spots available for ${event.title}.`);
-    }
+  setSelectedEvent(event);
+    // if (event.availableSlots > 0) {
+    //   setSelectedEvent(event);
+    // } else {
+    //   alert(`No spots available for ${event.title}.`);
+    // }
   };
 
   useEffect(() => {
