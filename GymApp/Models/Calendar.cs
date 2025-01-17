@@ -20,10 +20,10 @@ namespace GymApp.Models
         [Required]
         public TimeSpan EndTime { get; set;}
         [Required]
-        [Range(1,80)]
+        [Range(1,100)]
         public int Capacity { get; set;}
         [Required]
-        [Range(0,80)]
+        [Range(0,120)]
         public int AvailableSlots { get; set;}
 
     }
