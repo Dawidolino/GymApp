@@ -35,7 +35,8 @@ namespace GymApp.Controllers
                 extendedProps = new
                 {
                     instructor = c.Instructor,
-                    availableSlots = c.AvailableSlots
+                    availableSlots = c.AvailableSlots,
+                    capacity = c.Capacity
                 }
             });
 
