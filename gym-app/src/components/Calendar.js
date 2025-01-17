@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import ReservationForm from './ReservationForm';
 
 function Calendar() {
   const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   const fetchClasses = async () => {
     const response = await fetch('http://localhost:5235/api/calendar/events');
@@ -11,43 +13,23 @@ function Calendar() {
     setEvents(data);
   };
 
-  const handleEventClick = async (eventClickInfo) => {
-    const eventId = eventClickInfo.event.id;
-    const availableSpots = eventClickInfo.event.extendedProps.availableSlots;
+  const handleEventClick = (eventClickInfo) => {
+    const event = {
+      id: eventClickInfo.event.id,
+      title: eventClickInfo.event.title,
+      start: eventClickInfo.event.start,
+      end: eventClickInfo.event.end,
+      instructor: eventClickInfo.event.extendedProps.instructor,
+      capacity: eventClickInfo.event.extendedProps.capacity,
+      availableSlots: eventClickInfo.event.extendedProps.availableSlots,
+    };
 
-    if (availableSpots > 0) {
-      const confirmation = window.confirm(
-        `You have clicked on ${eventClickInfo.event.title}. Spots available: ${availableSpots}. Do you want to book a spot?`
-      );
-     //logic for reserving a place for classes
-     if (confirmation) {
-      try {
-        // Wysyłanie rezerwacji do API
-        const response = await fetch('http://localhost:5235/api/reservation', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            classId: eventId, // Id klasy, której dotyczy rezerwacja
-            userId: 1, // Możesz to zmienić, aby dynamicznie przekazywać id użytkownika
-          }),
-        });
-
-        if (response.ok) {
-          alert('Reservation made successfully!');
-          fetchClasses(); // Odświeżenie kalendarza
-        } else {
-          const errorData = await response.json();
-          alert(`Error: ${errorData}`);
-        }
-      } catch (error) {
-        console.error('Error making reservation:', error);
-        alert('An error occurred while making the reservation.');
-      }
-    }
+  console.log('Selected Event:', event); // Log the event data
+  
+    if (event.availableSlots > 0) {
+      setSelectedEvent(event);
     } else {
-      alert(`No spots available for ${eventClickInfo.event.title}.`);
+      alert(`No spots available for ${event.title}.`);
     }
   };
 
@@ -61,8 +43,15 @@ function Calendar() {
       <FullCalendar
         plugins={[dayGridPlugin]}
         events={events}
-        eventClick={handleEventClick} // Obsługuje kliknięcie w event
+        eventClick={handleEventClick}
       />
+      {selectedEvent && (
+        <ReservationForm
+          event={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          onReservationSuccess={fetchClasses}
+        />
+      )}
     </div>
   );
 }
