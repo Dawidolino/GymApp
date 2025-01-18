@@ -25,8 +25,8 @@ function ReservationForm({ event, onClose, onReservationSuccess, onEdit }) {
 
       if (response.ok) {
         alert('Reservation made successfully!');
-        onReservationSuccess(); // Odśwież kalendarz
-        onClose(); // Zamknij formularz
+        onReservationSuccess(); 
+        onClose(); 
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData}`);
