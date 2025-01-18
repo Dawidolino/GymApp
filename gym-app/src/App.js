@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route,Link, Routes } from 'react-router-dom';
-import Calendar from './components/Calendar';  // Sprawdź poprawność ścieżki
-import CreateClassForm from './components/CreateClassForm'; // Sprawdź poprawność ścieżki
+import Calendar from './components/Calendar'; 
+import CreateClassForm from './components/CreateClassForm';
+import RegistrantsList from './components/RegistransList'
 
 function App() {
   return (
@@ -10,11 +11,13 @@ function App() {
         <h1>Gym App</h1>
         <nav>
           <Link to="/calendar">Go to Calendar</Link>
-          <Link to="/create">Create Class</Link>
+          <Link to="/create">Create Class</Link>        
+          <Link to="/registrants">Registrants List</Link>  
         </nav>
         <Routes>
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/create" element={<CreateClassForm />} />
+          <Route path="/registrants" element={<RegistrantsList/>}/>
         </Routes>
       </div>
     </Router>
