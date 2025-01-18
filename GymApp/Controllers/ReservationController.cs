@@ -22,7 +22,34 @@ namespace GymApp.Controllers
         {
             return Ok(await _context.Reservations.ToListAsync());
         }
-        
+
+        // GET: api/reservations/registrants with class id, username, and email
+        [HttpGet("registrants")]
+        public async Task<ActionResult> GetRegistrants()
+        {
+            var registrants = await _context.Reservations
+                .Join(_context.Calendars,
+                    r => r.ClassId,
+                    c => c.Id,
+                    (r, c) => new
+                    {
+                        ReservationId = r.Id,
+                        ClassId = c.Id,
+                        ClassName = c.Title,
+                        UserName = r.UserName,
+                        UserEmail = r.UserEmail
+                    })
+                .OrderBy(r => r.ClassName)
+                .ThenBy(r => r.UserName)   
+                .ToListAsync();
+
+            return Ok(registrants);
+        }
+
+
+
+
+
 
         // POST: api/reservations
         [HttpPost]
