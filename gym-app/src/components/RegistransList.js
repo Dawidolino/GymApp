@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './RegistrantsList.css';
+import '../styles/RegistrantsList.css';  
 
 function RegistrantsList() {
   const [registrants, setRegistrants] = useState([]);

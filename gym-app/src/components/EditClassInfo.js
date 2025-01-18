@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Modal.css';
+import '../styles/Modal.css'; 
 
 function EditClassInfo({ event, onClose, onEventUpdate }) {
   const [title, setTitle] = useState(event.title || '');

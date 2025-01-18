@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Modal.css';
+import '../styles/Modal.css';
 
 function ReservationForm({ event, onClose, onReservationSuccess, onEdit }) {
   const [userName, setUserName] = useState('');
