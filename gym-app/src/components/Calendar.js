@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import ReservationForm from './ReservationForm';
+import EditClassInfo from './EditClassInfo';
 
 function Calendar() {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [editingClass, setEditingClass] = useState(null);
 
   const fetchClasses = async () => {
     const response = await fetch('http://localhost:5235/api/calendar/events');
@@ -23,15 +25,12 @@ function Calendar() {
       capacity: eventClickInfo.event.extendedProps.capacity,
       availableSlots: eventClickInfo.event.extendedProps.availableSlots,
     };
+    console.log("Event ID: ", event.id);
+    setSelectedEvent(event);
+  };
 
-  console.log('Selected Event:', event); // Log the event data
-  
-  setSelectedEvent(event);
-    // if (event.availableSlots > 0) {
-    //   setSelectedEvent(event);
-    // } else {
-    //   alert(`No spots available for ${event.title}.`);
-    // }
+  const handleEditClass = () => {
+    setEditingClass(selectedEvent);
   };
 
   useEffect(() => {
@@ -46,11 +45,20 @@ function Calendar() {
         events={events}
         eventClick={handleEventClick}
       />
-      {selectedEvent && (
+      {selectedEvent && !editingClass && (
         <ReservationForm
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
           onReservationSuccess={fetchClasses}
+          onEdit={handleEditClass}
+          
+        />
+      )}
+      {editingClass && (
+        <EditClassInfo
+          event={editingClass}
+          onClose={() => setEditingClass(null)}
+          onEventUpdate={fetchClasses}
         />
       )}
     </div>
