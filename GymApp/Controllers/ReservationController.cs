@@ -39,10 +39,8 @@ namespace GymApp.Controllers
                 return BadRequest("No available slots for this class.");
             }
 
-            // Dodanie rezerwacji
             _context.Reservations.Add(reservation);
 
-            // Zmniejszenie liczby wolnych miejsc
             selectedClass.AvailableSlots--;
             await _context.SaveChangesAsync();
 
@@ -90,7 +88,6 @@ namespace GymApp.Controllers
             var selectedClass = await _context.Calendars.FindAsync(reservation.ClassId);
             if (selectedClass != null)
             {
-                // Zwiększenie liczby wolnych miejsc po usunięciu rezerwacji
                 selectedClass.AvailableSlots++;
             }
 
