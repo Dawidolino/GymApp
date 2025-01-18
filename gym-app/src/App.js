@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link, Routes, Navigate } from 'react-ro
 import Calendar from './components/Calendar'; 
 import CreateClassForm from './components/CreateClassForm';
 import RegistrantsList from './components/RegistransList';
+import './styles/App.css';  
 
 function App() {
   return (
