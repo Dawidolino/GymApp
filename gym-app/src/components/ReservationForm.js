@@ -70,11 +70,15 @@ function ReservationForm({ event, onClose, onReservationSuccess, onEdit }) {
               required
             />
           </div>
-          <div class="buttons-container">
-          <button type="button" class="edit-button">Edit</button>
-          <button type="submit" class="reserve-button">Reserve</button>
-          <button type="button" class="cancel-button">Cancel</button>
-        </div>     
+          <div className="buttons-container">
+            <button className="edit-button" type="button" onClick={() => onEdit(event)}>
+              Edit
+            </button>
+            <button type="submit">Reserve</button>
+            <button className="cancel-button" type="button" onClick={onClose}>
+              Cancel
+            </button>  
+          </div>
         </form>
       </div>
       <div className="modal-backdrop" onClick={onClose}></div>
