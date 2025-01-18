@@ -19,7 +19,7 @@ function CreateClassForm() {
       capacity,
       instructor,
     };
-    console.log('Sending class data:', classData); // Zalogowanie danych przed wysłaniem
+    console.log('Sending class data:', classData); 
 
     try {
       const response = await fetch('http://localhost:5235/api/calendar', {
@@ -31,8 +31,7 @@ function CreateClassForm() {
       });
 
       if (response.ok) {
-        alert('Class created successfully');
-        // Możesz dodać logikę do odświeżenia kalendarza, np. fetchClasses();
+        alert('Class created successfully');        
       } else {
         alert('Error creating class');
       }
