@@ -45,12 +45,6 @@ namespace GymApp.Controllers
 
             return Ok(registrants);
         }
-
-
-
-
-
-
         // POST: api/reservations
         [HttpPost]
         public async Task<ActionResult> MakeReservation(Reservation reservation)
@@ -126,6 +120,6 @@ namespace GymApp.Controllers
         private bool ReservationExists(int id)
         {
             return _context.Reservations.Any(e => e.Id == id);
-        }
+        }       
     }
 }
